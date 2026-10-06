@@ -14,6 +14,11 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
+    'modules' => [
+        'api' => [
+            'class' => \frontend\modules\api\Module::class,
+        ],
+    ],
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',
@@ -39,14 +44,18 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                // API-правила (сверху — приоритетнее)
+                'api/<controller:[\w-]+>/<action:[\w-]+>' => 'api/<controller>/<action>',
+                'api/<controller:[\w-]+>' => 'api/<controller>/index',
+
+                '' => 'site/index',
+                '<action:[\w-]+>' => 'site/<action>',
             ],
         ],
-        */
     ],
     'params' => $params,
 ];
