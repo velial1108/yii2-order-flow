@@ -1,0 +1,43 @@
+<?php
+declare(strict_types=1);
+namespace common\models;
+
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
+
+class OrderItem extends ActiveRecord
+{
+    public static function tableName(): string
+    {
+     return '{{%order_items}}';
+    }
+    public function rules(): array
+    {
+        return [
+            [['order_id', 'product_name', 'price'], 'required'],
+            [['order_id', 'quantity'], 'integer'],
+            [['price'], 'number', 'min' => 0],
+            [['product_name'], 'string', 'max' => 255],
+            [['quantity'], 'integer', 'min' => 1],
+        ];
+    }
+    public function attributeLabels(): array
+    {
+        return [
+            'id' => 'ID',
+            'order_id' => 'Заказ',
+            'product_name' => 'Название товара',
+            'price' => 'Цена',
+            'quantity' => 'Количество',
+        ];
+    }
+    public function getOrder(): ActiveQuery
+    {
+        return $this->hasOne(Order::class, ['id' => 'order_id']);
+
+    }
+    public function getSubtotal(): float
+    {
+        return (float)$this->price * (int)$this->quantity;
+    }
+}
