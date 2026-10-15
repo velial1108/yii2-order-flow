@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "58b105d72277a508f0506a3339173267",
+    "content-hash": "f105514e10ae8cacdab090ddf832a41e",
     "packages": [
         {
             "name": "bower-asset/inputmask",
@@ -2088,6 +2088,55 @@
             "time": "2026-07-22T06:33:17+00:00"
         },
         {
+            "name": "codeception/lib-xml",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Codeception/lib-xml.git",
+                "reference": "758a525ed766ad641cc66cd619d96dbb9e887be2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Codeception/lib-xml/zipball/758a525ed766ad641cc66cd619d96dbb9e887be2",
+                "reference": "758a525ed766ad641cc66cd619d96dbb9e887be2",
+                "shasum": ""
+            },
+            "require": {
+                "codeception/lib-web": "^1.0.6 || ^2",
+                "ext-dom": "*",
+                "php": "^8.2",
+                "symfony/css-selector": ">=4.4.24 <9.0"
+            },
+            "conflict": {
+                "codeception/codeception": "<5.0.0-alpha3"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Gintautas Miselis"
+                }
+            ],
+            "description": "Files used by module-rest and module-soap",
+            "homepage": "https://codeception.com/",
+            "keywords": [
+                "codeception"
+            ],
+            "support": {
+                "issues": "https://github.com/Codeception/lib-xml/issues",
+                "source": "https://github.com/Codeception/lib-xml/tree/1.1.1"
+            },
+            "time": "2025-11-28T08:21:33+00:00"
+        },
+        {
             "name": "codeception/module-asserts",
             "version": "3.3.0",
             "source": {
@@ -2198,25 +2247,26 @@
         },
         {
             "name": "codeception/module-phpbrowser",
-            "version": "3.0.2",
+            "version": "4.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/module-phpbrowser.git",
-                "reference": "460e392c77370f7836012b16e06071eb1607876a"
+                "reference": "56903df98e29dedb51dd9f8d2dc00b05063c2135"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/module-phpbrowser/zipball/460e392c77370f7836012b16e06071eb1607876a",
-                "reference": "460e392c77370f7836012b16e06071eb1607876a",
+                "url": "https://api.github.com/repos/Codeception/module-phpbrowser/zipball/56903df98e29dedb51dd9f8d2dc00b05063c2135",
+                "reference": "56903df98e29dedb51dd9f8d2dc00b05063c2135",
                 "shasum": ""
             },
             "require": {
                 "codeception/codeception": "*@dev",
                 "codeception/lib-innerbrowser": "*@dev",
                 "ext-json": "*",
-                "guzzlehttp/guzzle": "^7.4",
-                "php": "^8.1",
-                "symfony/browser-kit": "^5.4 | ^6.0 | ^7.0"
+                "guzzlehttp/guzzle": "^7.8.2 | ^8.0",
+                "guzzlehttp/psr7": "^2.6.3 | ^3.0",
+                "php": "^8.2",
+                "symfony/browser-kit": "^5.4 | ^6.0 | ^7.0 | ^8.0"
             },
             "conflict": {
                 "codeception/codeception": "<5.0",
@@ -2226,7 +2276,7 @@
                 "aws/aws-sdk-php": "^3.199",
                 "codeception/module-rest": "^2.0 | *@dev",
                 "ext-curl": "*",
-                "phpstan/phpstan": "^1.10",
+                "phpstan/phpstan": "^2.2.6",
                 "squizlabs/php_codesniffer": "^3.10"
             },
             "suggest": {
@@ -2259,9 +2309,69 @@
             ],
             "support": {
                 "issues": "https://github.com/Codeception/module-phpbrowser/issues",
-                "source": "https://github.com/Codeception/module-phpbrowser/tree/3.0.2"
+                "source": "https://github.com/Codeception/module-phpbrowser/tree/4.1.0"
             },
-            "time": "2025-09-04T10:45:58+00:00"
+            "time": "2026-07-27T06:11:37+00:00"
+        },
+        {
+            "name": "codeception/module-rest",
+            "version": "3.4.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Codeception/module-rest.git",
+                "reference": "d6ffee7fe103a50ce75ba80bbfcf45a9dd98e022"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Codeception/module-rest/zipball/d6ffee7fe103a50ce75ba80bbfcf45a9dd98e022",
+                "reference": "d6ffee7fe103a50ce75ba80bbfcf45a9dd98e022",
+                "shasum": ""
+            },
+            "require": {
+                "codeception/codeception": "^5.0.8",
+                "codeception/lib-xml": "^1.0",
+                "ext-dom": "*",
+                "ext-json": "*",
+                "justinrainbow/json-schema": "^5.2.9 || ^6",
+                "php": "^8.2",
+                "softcreatr/jsonpath": "^0.8 || ^0.9 || ^0.10 || ^0.11 || ^1.0 || ^2.0"
+            },
+            "require-dev": {
+                "codeception/lib-innerbrowser": "^3.0 | ^4.0",
+                "codeception/stub": "^4.0",
+                "codeception/util-universalframework": "^2.0",
+                "ext-libxml": "*",
+                "ext-simplexml": "*"
+            },
+            "suggest": {
+                "aws/aws-sdk-php": "For using AWS Auth"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Gintautas Miselis"
+                }
+            ],
+            "description": "REST module for Codeception",
+            "homepage": "https://codeception.com/",
+            "keywords": [
+                "codeception",
+                "rest"
+            ],
+            "support": {
+                "issues": "https://github.com/Codeception/module-rest/issues",
+                "source": "https://github.com/Codeception/module-rest/tree/3.4.4"
+            },
+            "time": "2026-09-14T05:02:45+00:00"
         },
         {
             "name": "codeception/module-yii2",
@@ -2807,6 +2917,144 @@
                 }
             ],
             "time": "2026-08-24T09:13:11+00:00"
+        },
+        {
+            "name": "justinrainbow/json-schema",
+            "version": "6.13.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jsonrainbow/json-schema.git",
+                "reference": "e54aacc4c0657b3a4af4f628428d2702146828c6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jsonrainbow/json-schema/zipball/e54aacc4c0657b3a4af4f628428d2702146828c6",
+                "reference": "e54aacc4c0657b3a4af4f628428d2702146828c6",
+                "shasum": ""
+            },
+            "require": {
+                "ext-filter": "*",
+                "ext-json": "*",
+                "marc-mabe/php-enum": "^4.4",
+                "php": "^7.2 || ^8.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "3.3.0",
+                "json-schema/json-schema-test-suite": "dev-main",
+                "marc-mabe/php-enum-phpstan": "^2.0",
+                "phpspec/prophecy": "^1.19",
+                "phpstan/phpstan": "^1.12",
+                "phpunit/phpunit": "^8.5"
+            },
+            "bin": [
+                "bin/validate-json"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "6.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "JsonSchema\\": "src/JsonSchema/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Danny van der Sluijs",
+                    "email": "danny.vandersluijs@icloud.com",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "A library to validate a json schema.",
+            "homepage": "https://github.com/jsonrainbow/json-schema",
+            "keywords": [
+                "json",
+                "schema"
+            ],
+            "support": {
+                "issues": "https://github.com/jsonrainbow/json-schema/issues",
+                "source": "https://github.com/jsonrainbow/json-schema/tree/6.13.1"
+            },
+            "time": "2026-09-30T07:42:28+00:00"
+        },
+        {
+            "name": "marc-mabe/php-enum",
+            "version": "v4.7.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/marc-mabe/php-enum.git",
+                "reference": "bb426fcdd65c60fb3638ef741e8782508fda7eef"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/marc-mabe/php-enum/zipball/bb426fcdd65c60fb3638ef741e8782508fda7eef",
+                "reference": "bb426fcdd65c60fb3638ef741e8782508fda7eef",
+                "shasum": ""
+            },
+            "require": {
+                "ext-reflection": "*",
+                "php": "^7.1 | ^8.0"
+            },
+            "require-dev": {
+                "phpbench/phpbench": "^0.16.10 || ^1.0.4",
+                "phpstan/phpstan": "^1.3.1",
+                "phpunit/phpunit": "^7.5.20 | ^8.5.22 | ^9.5.11",
+                "vimeo/psalm": "^4.17.0 | ^5.26.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-3.x": "3.2-dev",
+                    "dev-master": "4.7-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "MabeEnum\\": "src/"
+                },
+                "classmap": [
+                    "stubs/Stringable.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Marc Bennewitz",
+                    "email": "dev@mabe.berlin",
+                    "homepage": "https://mabe.berlin/",
+                    "role": "Lead"
+                }
+            ],
+            "description": "Simple and fast implementation of enumerations with native PHP",
+            "homepage": "https://github.com/marc-mabe/php-enum",
+            "keywords": [
+                "enum",
+                "enum-map",
+                "enum-set",
+                "enumeration",
+                "enumerator",
+                "enummap",
+                "enumset",
+                "map",
+                "set",
+                "type",
+                "type-hint",
+                "typehint"
+            ],
+            "support": {
+                "issues": "https://github.com/marc-mabe/php-enum/issues",
+                "source": "https://github.com/marc-mabe/php-enum/tree/v4.7.2"
+            },
+            "time": "2025-09-14T11:18:39+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -4869,6 +5117,76 @@
                 }
             ],
             "time": "2026-02-06T04:52:52+00:00"
+        },
+        {
+            "name": "softcreatr/jsonpath",
+            "version": "2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SoftCreatR/JSONPath.git",
+                "reference": "105243c9a3a3cf7ef76d81a2ec306dfdb83ab53a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SoftCreatR/JSONPath/zipball/105243c9a3a3cf7ef76d81a2ec306dfdb83ab53a",
+                "reference": "105243c9a3a3cf7ef76d81a2ec306dfdb83ab53a",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": "^8.3"
+            },
+            "replace": {
+                "flow/jsonpath": "*"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.92",
+                "phpstan/phpstan": "^2.1",
+                "phpunit/phpunit": "^12",
+                "squizlabs/php_codesniffer": "^4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Flow\\JSONPath\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stephen Frank",
+                    "email": "stephen@flowsa.com",
+                    "homepage": "https://prismaticbytes.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Sascha Greuel",
+                    "email": "hello@1-2.dev",
+                    "homepage": "https://1-2.dev",
+                    "role": "Developer"
+                }
+            ],
+            "description": "JSONPath implementation for parsing, searching and flattening arrays",
+            "support": {
+                "email": "hello@1-2.dev",
+                "forum": "https://github.com/SoftCreatR/JSONPath/discussions",
+                "issues": "https://github.com/SoftCreatR/JSONPath/issues",
+                "source": "https://github.com/SoftCreatR/JSONPath"
+            },
+            "funding": [
+                {
+                    "url": "https://ecologi.com/softcreatr?r=61212ab3fc69b8eb8a2014f4",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/softcreatr",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-09-28T16:20:10+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",

@@ -1,0 +1,9 @@
+FROM yiisoftware/yii2-php:8.4-fpm-nginx
+
+WORKDIR /app
+
+RUN docker-php-ext-enable opcache
+RUN docker-php-ext-enable xdebug || true
+
+# Копируем конфиг Nginx для Advanced-шаблона
+COPY docker/nginx/default.conf /etc/nginx/conf.d/default.conf

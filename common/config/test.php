@@ -3,12 +3,19 @@
 declare(strict_types=1);
 
 return [
-    'id' => 'app-common-tests',
-    'basePath' => dirname(__DIR__),
     'components' => [
-        'user' => [
-            'class' => \yii\web\User::class,
-            'identityClass' => \common\models\User::class,
+        'db' => [
+            'class' => \yii\db\Connection::class,
+            'dsn' => 'pgsql:host=pgsql;port=5432;dbname=yii2advanced_test',
+            'username' => 'yii2advanced',
+            'password' => 'secret',
+            'charset' => 'utf8',
+            'schemaMap' => [
+                'pgsql' => [
+                    'class' => \yii\db\pgsql\Schema::class,
+                    'defaultSchema' => 'public',
+                ],
+            ],
         ],
     ],
 ];
