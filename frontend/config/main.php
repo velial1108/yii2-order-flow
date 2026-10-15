@@ -47,11 +47,17 @@ return [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
+            'enableStrictParsing' => false,
             'rules' => [
-                // API-правила (сверху — приоритетнее)
-                'api/<controller:[\w-]+>/<action:[\w-]+>' => 'api/<controller>/<action>',
-                'api/<controller:[\w-]+>' => 'api/<controller>/index',
+                // API: заказы
+                'GET api/orders' => 'api/order/index',
+                'GET api/orders/<id:\d+>' => 'api/order/view',
+                'POST api/orders' => 'api/order/create',
 
+                // API: health
+                'GET api/health' => 'api/health/index',
+
+                // Сайт
                 '' => 'site/index',
                 '<action:[\w-]+>' => 'site/<action>',
             ],

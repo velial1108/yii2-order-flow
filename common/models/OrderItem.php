@@ -7,6 +7,7 @@ use yii\db\ActiveRecord;
 
 class OrderItem extends ActiveRecord
 {
+    public const SCENARIO_CREATE_FROM_FORM = 'create-from-form';
     public static function tableName(): string
     {
      return '{{%order_items}}';
@@ -39,5 +40,13 @@ class OrderItem extends ActiveRecord
     public function getSubtotal(): float
     {
         return (float)$this->price * (int)$this->quantity;
+    }
+    public function scenarios(): array
+    {
+        $scenarios = parent::scenarios();
+        $scenarios[self::SCENARIO_CREATE_FROM_FORM] = [
+            'product_name', 'price', 'quantity',
+        ];
+        return $scenarios;
     }
 }

@@ -9,7 +9,7 @@ use common\models\OrderItem;
 use yii\console\Controller;
 use yii\console\ExitCode;
 
-class TestController extends Controller
+class SandboxController extends Controller
 {
     public function actionOrder(): int
     {
@@ -61,6 +61,28 @@ class TestController extends Controller
         echo "\nПереходы статусов:\n";
         echo "  pending → processing: " . ($order->canTransitionTo(Order::STATUS_PROCESSING) ? 'да' : 'нет') . "\n";
         echo "  pending → completed: " . ($order->canTransitionTo(Order::STATUS_COMPLETED) ? 'да' : 'нет') . "\n";
+
+        return ExitCode::OK;
+    }
+    public function actionCreateOrder(): int
+    {
+        $form = new \common\models\forms\CreateOrderForm();
+        $form->user_id = 1;
+        $form->items = [
+            ['product_name' => 'Книга', 'price' => '500.00', 'quantity' => 2],
+            ['product_name' => 'Ручка', 'price' => '50.00', 'quantity' => 3],
+        ];
+
+        $order = $form->create();
+
+        if ($order === null) {
+            echo "Ошибка:\n";
+            print_r($form->getErrors());
+            return ExitCode::UNSPECIFIED_ERROR;
+        }
+
+        echo "Заказ #{$order->id} создан, total = {$order->total}\n";
+        echo "Позиций: " . count($order->items) . "\n";
 
         return ExitCode::OK;
     }

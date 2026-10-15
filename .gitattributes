@@ -1,0 +1,30 @@
+# Auto detect text files and normalize to LF in repository
+* text=auto eol=lf
+
+# Явно указать типы файлов
+*.php text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.xml text eol=lf
+*.http text eol=lf
+
+# Windows-скрипты — CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Бинарные файлы
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.svg text eol=lf
+*.woff binary
+*.woff2 binary
+*.ttf binary
+
+# Не трогать
+.gitattributes text
+.gitignore text
