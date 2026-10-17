@@ -14,5 +14,10 @@ return yii\helpers\ArrayHelper::merge(
                 'cookieValidationKey' => 'qEwNPWyFg7PSHWHxRzciD6zurd2iryws',
             ],
         ],
+
+        'user' => [
+            'identityClass' => \common\models\User::class,
+            'enableSession' => false,
+        ],
     ]
 );
