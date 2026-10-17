@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: pdo, pdo_pgsql, pgsql, mbstring, intl, dom, json, curl, zip, xml, gd, bcmath, opcache
+          coverage: none
+          tools: composer:v2
+
+      - name: Copy configs from dist
+        run: |
+          cp common/config/main-local.php.dist common/config/main-local.php
+          cp common/config/test-local.php.dist common/config/test-local.php
+          cp frontend/config/main-local.php.dist frontend/config/main-local.php
+          cp frontend/config/test-local.php.dist frontend/config/test-local.php
+          cp backend/config/main-local.php.dist backend/config/main-local.php
+          cp backend/config/test-local.php.dist backend/config/test-local.php
+
+      - name: Install Composer dependencies
+        run: composer install --prefer-dist --no-interaction --no-progress
+
+      - name: Run Unit tests (common)
+        run: vendor/bin/codecept run Unit -c common

@@ -1,0 +1,14 @@
+### Создание заказа
+GET http://localhost:20080/api/orders
+#Content-Type: application/json
+#
+#{
+#  "user_id": 1,
+#  "items": [
+#    {
+#      "product_name": "Book",
+#      "price": "500.00",
+#      "quantity": 2
+#    }
+#  ]
+#}
