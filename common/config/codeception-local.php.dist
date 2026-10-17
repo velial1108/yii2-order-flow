@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return yii\helpers\ArrayHelper::merge(
     require __DIR__ . '/main.php',
     require __DIR__ . '/main-local.php',
@@ -10,14 +12,12 @@ return yii\helpers\ArrayHelper::merge(
         'basePath' => dirname(__DIR__),
         'components' => [
             'request' => [
-                // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-                'cookieValidationKey' => 'qEwNPWyFg7PSHWHxRzciD6zurd2iryws',
+                'cookieValidationKey' => 'test-secret-key',
             ],
-        ],
-
-        'user' => [
-            'identityClass' => \common\models\User::class,
-            'enableSession' => false,
+            'user' => [
+                'identityClass' => \common\models\User::class,
+                'enableSession' => false,
+            ],
         ],
     ]
 );
