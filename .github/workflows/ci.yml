@@ -10,6 +10,21 @@ jobs:
   tests:
     runs-on: ubuntu-latest
 
+    services:
+      pgsql:
+        image: postgres:16
+        env:
+          POSTGRES_DB: yii2advanced
+          POSTGRES_USER: yii2advanced
+          POSTGRES_PASSWORD: secret
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -41,6 +56,10 @@ jobs:
 
       - name: Initialize Yii environment
         run: php init --env=Development --overwrite=All
+
+      - name: Create test database
+        run: |
+          PGPASSWORD=secret psql -h localhost -U yii2advanced -d yii2advanced -c "CREATE DATABASE yii2advanced_test;"
 
       - name: Build Codeception actors
         run: vendor/bin/codecept build
