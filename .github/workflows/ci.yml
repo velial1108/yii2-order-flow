@@ -27,6 +27,8 @@ jobs:
         run: |
           cp common/config/main-local.php.dist common/config/main-local.php
           cp common/config/test-local.php.dist common/config/test-local.php
+          cp common/config/codeception-local.php.dist common/config/codeception-local.php
+          cp frontend/config/codeception-local.php.dist frontend/config/codeception-local.php
           cp frontend/config/main-local.php.dist frontend/config/main-local.php
           cp frontend/config/test-local.php.dist frontend/config/test-local.php
           cp backend/config/main-local.php.dist backend/config/main-local.php
