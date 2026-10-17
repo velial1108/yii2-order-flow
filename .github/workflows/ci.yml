@@ -37,5 +37,8 @@ jobs:
       - name: Install Composer dependencies
         run: composer install --prefer-dist --no-interaction --no-progress
 
+      - name: Build Codeception actors
+        run: vendor/bin/codecept build
+
       - name: Run Unit tests (common)
         run: vendor/bin/codecept run Unit -c common
