@@ -55,6 +55,8 @@ jobs:
           cp backend/config/params-local.php.dist backend/config/params-local.php
 
           cp console/config/params-local.php.dist console/config/params-local.php
+          cp console/config/main-local.php.dist console/config/main-local.php
+          cp console/config/test-local.php.dist console/config/test-local.php
 
       - name: Install Composer dependencies
         run: composer install --prefer-dist --no-interaction --no-progress
