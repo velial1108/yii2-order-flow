@@ -61,6 +61,9 @@ jobs:
         run: |
           PGPASSWORD=secret psql -h localhost -U yii2advanced -d yii2advanced -c "CREATE DATABASE yii2advanced_test;"
 
+      - name: Run migrations on test DB
+        run: php yii_test migrate --interactive=0
+
       - name: Build Codeception actors
         run: vendor/bin/codecept build
 
