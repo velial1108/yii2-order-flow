@@ -42,14 +42,19 @@ jobs:
           cp common/config/main-local.php.dist common/config/main-local.php
           cp common/config/test-local.php.dist common/config/test-local.php
           cp common/config/codeception-local.php.dist common/config/codeception-local.php
+          cp common/config/params-local.php.dist common/config/params-local.php
           
           cp frontend/config/main-local.php.dist frontend/config/main-local.php
           cp frontend/config/test-local.php.dist frontend/config/test-local.php
           cp frontend/config/codeception-local.php.dist frontend/config/codeception-local.php
+          cp frontend/config/params-local.php.dist frontend/config/params-local.php
           
           cp backend/config/main-local.php.dist backend/config/main-local.php
           cp backend/config/test-local.php.dist backend/config/test-local.php
           cp backend/config/codeception-local.php.dist backend/config/codeception-local.php
+          cp backend/config/params-local.php.dist backend/config/params-local.php
+
+          cp console/config/params-local.php.dist console/config/params-local.php
 
       - name: Install Composer dependencies
         run: composer install --prefer-dist --no-interaction --no-progress
