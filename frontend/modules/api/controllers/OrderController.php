@@ -8,12 +8,12 @@ use common\models\forms\CreateOrderForm;
 use common\models\Order;
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\queue\Queue;
 use yii\rest\Controller;
 use yii\web\NotFoundHttpException;
 
 class OrderController extends Controller
 {
-
     public function actionIndex(): ActiveDataProvider
     {
         return new ActiveDataProvider([
@@ -45,7 +45,7 @@ class OrderController extends Controller
                 'errors' => $form->getErrors(),
             ];
         }
-
+        Yii::$app->queue->push(new \common\jobs\ProcessOrderJob((int)$order->id));
         Yii::$app->response->statusCode = 201;
         return [
             'success' => true,
