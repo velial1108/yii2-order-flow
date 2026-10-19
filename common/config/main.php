@@ -11,7 +11,7 @@ $params = array_merge($params, $paramsLocal);
 return [
     'bootstrap' => [
         \common\bootstrap\MailerBootstrap::class,
-        'queue', // ← добавляем: регистрирует консольные команды queue/*
+        'queue',
     ],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
@@ -21,16 +21,6 @@ return [
     'components' => [
         'cache' => [
             'class' => \yii\caching\FileCache::class,
-        ],
-        'queue' => [
-            'class' => \yii\queue\amqp_interop\Queue::class,
-            'host' => $params['rabbitmq']['host'],
-            'port' => (int) $params['rabbitmq']['port'],
-            'user' => $params['rabbitmq']['user'],
-            'password' => $params['rabbitmq']['password'],
-            'queueName' => $params['rabbitmq']['queueName'],
-            'driver' => \yii\queue\amqp_interop\Queue::ENQUEUE_AMQP_LIB,
-            'as log' => \yii\queue\LogBehavior::class,
         ],
     ],
     'params' => $params,

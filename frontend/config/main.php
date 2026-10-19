@@ -62,6 +62,11 @@ return [
                 '<action:[\w-]+>' => 'site/<action>',
             ],
         ],
+        'mailer' => [
+            'class' => \yii\symfonymailer\Mailer::class,
+            'viewPath' => '@common/mail',
+            'useFileTransport' => true,
+        ],
     ],
     'params' => $params,
 ];
