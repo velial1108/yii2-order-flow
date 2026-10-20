@@ -12,3 +12,25 @@ GET http://localhost:20080/api/orders
 #    }
 #  ]
 #}
+
+
+### Тест очереди для RabbitMQ
+# curl -X POST http://localhost:20080/api/orders
+#  -H "Content-Type: application/json"
+#  -d '{"user_id":1,"items":[{"product_name":"Book","price":"500.00","quantity":2}]}'
+POST http://localhost:20080/api/orders
+Content-Type: application/json
+
+{
+  "user_id": 1,
+  "items": [
+    {
+      "product_name": "Book",
+      "price": "500.00",
+      "quantity": 2
+    }
+  ]
+}
+
+### В конце выполнения запустить воркера для прослушивания
+docker compose exec app php yii queue/listen

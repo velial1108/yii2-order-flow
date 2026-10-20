@@ -52,7 +52,15 @@ class OrderController extends Controller
             'order' => $this->serializeOrder($order),
         ];
     }
+    public function actionTestEmail(): array
+    {
+        Yii::$app->queueNotifications->push(new \common\jobs\SendEmailJob([
+            'email' => 'test@example.com',
+            'subject' => 'Тест уведомления',
+        ]));
 
+        return ['success' => true, 'message' => 'Задача в очереди notifications'];
+    }
     private function serializeOrder(Order $order): array
     {
         $items = [];

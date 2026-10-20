@@ -59,6 +59,35 @@ services:
       timeout: 5s
       retries: 5
 
+  worker:
+    build:
+      context: .
+      dockerfile: docker/php-fpm/Dockerfile
+    volumes:
+      - ./:/app
+    depends_on:
+      pgsql:
+        condition: service_started
+      rabbitmq:
+        condition: service_healthy
+    command: php yii queue/listen
+    restart: always
+
+  worker-notifications:
+    build:
+      context: .
+      dockerfile: docker/php-fpm/Dockerfile
+    volumes:
+      - ./:/app
+    depends_on:
+      pgsql:
+        condition: service_started
+      rabbitmq:
+        condition: service_healthy
+    command: php yii queue-notifications/listen
+    restart: always
+
 volumes:
   pgsql-data:
   rabbitmq-data:
+

@@ -66,5 +66,15 @@ return [
             'driver' => \yii\queue\amqp_interop\Queue::ENQUEUE_AMQP_LIB,
             'as log' => \yii\queue\LogBehavior::class,
         ],
+        'queueNotifications' => [
+            'class' => \yii\queue\amqp_interop\Queue::class,
+            'host' => $params['rabbitmq']['host'],
+            'port' => (int) $params['rabbitmq']['port'],
+            'user' => $params['rabbitmq']['user'],
+            'password' => $params['rabbitmq']['password'],
+            'queueName' => 'notifications',
+            'driver' => \yii\queue\amqp_interop\Queue::ENQUEUE_AMQP_LIB,
+            'as log' => \yii\queue\LogBehavior::class,
+        ],
     ],
 ];
