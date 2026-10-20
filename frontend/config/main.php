@@ -57,6 +57,9 @@ return [
                 // API: health
                 'GET api/health' => 'api/health/index',
 
+                //API тест очереди воркера notification
+                'GET api/test-email' => 'api/order/test-email',
+
                 // Сайт
                 '' => 'site/index',
                 '<action:[\w-]+>' => 'site/<action>',
