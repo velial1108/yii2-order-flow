@@ -22,38 +22,39 @@ class ProcessOrderJob extends BaseObject implements JobInterface, RetryableJobIn
     {
         //тест DLQ
 //        throw new \RuntimeException('тестовая ошибка для DLQ');
+        $mutex = Yii::$app->mutex;
+        $lockName = 'order_' . $this->orderId;
 
-        $order = Order::findOne($this->orderId);
-
-        if ($order === null) {
-            throw new \RuntimeException("Order #{$this->orderId} not found.");
-        }
-        if (!$order->isPending()) {
-            Yii::info("Заказ #{$this->orderId} уже в статусе {$order->status}. Пропускаем.", 'queue');
+        // попытка блокировки ждем 10 сек
+        if (!$mutex->acquire($lockName, 10)) {
+            Yii::info("Заказ #{$this->orderId} уже обрабатывается другим воркером. Пропускаем.", 'queue');
             return;
-        }
-        if ($order->canTransitionTo(Order::STATUS_PROCESSING)) {
-            $order->status = Order::STATUS_PROCESSING;
-            $order->save(false);
-            Yii::info("Заказ #{$this->orderId} взят в обработку", 'queue');
         }
 
         try {
-            sleep(3);
+            $order = Order::findOne($this->orderId);
+            if ($order === null) {
+                throw new \RuntimeException("Order #{$this->orderId} not found.");
+            }
+            if (!$order->isPending()) {
+                Yii::info("Заказ #{$this->orderId} уже в статусе {$order->status}. Пропускаем.", 'queue');
+                return;
+            }
+            if ($order->canTransitionTo(Order::STATUS_PROCESSING)) {
+                $order->status = Order::STATUS_PROCESSING;
+                $order->save(false);
+            }
+
+            sleep(3); // Имитация работы
+
             if ($order->canTransitionTo(Order::STATUS_COMPLETED)) {
                 $order->status = Order::STATUS_COMPLETED;
                 $order->save(false);
                 Yii::$app->cache->delete("order_{$this->orderId}");
                 Yii::info("Заказ #{$this->orderId} успешно завершен", 'queue');
             }
-        } catch (\Throwable $e) {
-            if ($order->canTransitionTo(Order::STATUS_FAILED)) {
-                $order->status = Order::STATUS_FAILED;
-                $order->save(false);
-            }
-            Yii::error("Ошибка обработки заказа #{$this->orderId}: " . $e->getMessage(), 'queue');
-
-            throw $e;
+        } finally {
+            $mutex->release($lockName);
         }
     }
     public function getTtr(): int
