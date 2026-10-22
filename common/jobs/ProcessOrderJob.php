@@ -43,6 +43,7 @@ class ProcessOrderJob extends BaseObject implements JobInterface, RetryableJobIn
             if ($order->canTransitionTo(Order::STATUS_COMPLETED)) {
                 $order->status = Order::STATUS_COMPLETED;
                 $order->save(false);
+                Yii::$app->cache->delete("order_{$this->orderId}");
                 Yii::info("Заказ #{$this->orderId} успешно завершен", 'queue');
             }
         } catch (\Throwable $e) {

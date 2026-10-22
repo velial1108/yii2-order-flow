@@ -24,11 +24,24 @@ class OrderController extends Controller
 
     public function actionView(int $id): array
     {
+        $cacheKey = "order_{$id}";
+
+        //вызов из кэша
+        $data = Yii::$app->cache->get($cacheKey);
+        if ($data !== false) {
+            //нашли в кэше отдали
+            return $data;
+        }
+        //пробуем брать в базе если кэш пуст
         $order = Order::findOne($id);
         if ($order === null) {
             throw new NotFoundHttpException("Заказ #{$id} не найден");
         }
-        return $this->serializeOrder($order);
+        $data = $this->serializeOrder($order);
+
+        //храним в кэше 300 сек
+        Yii::$app->cache->set($cacheKey, $data, 300);
+        return $data;
     }
 
     public function actionCreate(): array
@@ -37,7 +50,7 @@ class OrderController extends Controller
         $form->load(Yii::$app->request->post(), '');
 
         $order = $form->create();
-
+        Yii::$app->cache->delete("order_{$order->id}");
         if ($order === null) {
             Yii::$app->response->statusCode = 422;
             return [
