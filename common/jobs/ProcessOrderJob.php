@@ -21,7 +21,7 @@ class ProcessOrderJob extends BaseObject implements JobInterface, RetryableJobIn
     public function execute($queue): void
     {
         //тест DLQ
-        throw new \RuntimeException('тестовая ошибка для DLQ');
+//        throw new \RuntimeException('тестовая ошибка для DLQ');
 
         $order = Order::findOne($this->orderId);
 
