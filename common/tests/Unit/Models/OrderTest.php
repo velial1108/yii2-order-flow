@@ -23,8 +23,10 @@ class OrderTest extends \Codeception\Test\Unit
     {
         $statuses = Order::getStatuses();
 
-        $this->assertIsArray($statuses);
         $this->assertArrayHasKey(Order::STATUS_PENDING, $statuses);
+        $this->assertArrayHasKey(Order::STATUS_PROCESSING, $statuses);
+        $this->assertArrayHasKey(Order::STATUS_COMPLETED, $statuses);
+        $this->assertArrayHasKey(Order::STATUS_FAILED, $statuses);
         $this->assertCount(4, $statuses);
     }
 

@@ -17,7 +17,7 @@ class SandboxController extends Controller
         $order = new Order();
         $order->user_id = 1;
         $order->status = Order::STATUS_PENDING;
-        $order->total = 0;
+        $order->total = '0.00';
 
         if (!$order->save()) {
             echo "Ошибка создания заказа:\n";

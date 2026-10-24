@@ -17,8 +17,11 @@ class RabbitInitController extends Controller
 {
     public function actionIndex(): int
     {
+        /** @var \yii\queue\amqp_interop\Queue $queue */
+        $queue = Yii::$app->get('queue');
+
         /** @var AmqpContext $context */
-        $context = Yii::$app->queue->getContext();
+        $context = $queue->getContext();
 
         // 1. Заказы
         $ordersDlx = $context->createTopic('orders_dlx');

@@ -21,7 +21,7 @@ class ProcessOrderJobTest extends Unit
         $order = new Order();
         $order->user_id = 1;
         $order->status = Order::STATUS_PENDING;
-        $order->total = 100;
+        $order->total = (string)100;
         $order->save(false);
 
         $job = new ProcessOrderJob((int)$order->id);
@@ -43,7 +43,7 @@ class ProcessOrderJobTest extends Unit
         $order = new Order();
         $order->user_id = 1;
         $order->status = Order::STATUS_COMPLETED;
-        $order->total = 100;
+        $order->total = (string)100;
         $order->save(false);
 
         $job = new ProcessOrderJob((int)$order->id);

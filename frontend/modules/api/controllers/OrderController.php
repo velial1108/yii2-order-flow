@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace frontend\modules\api\controllers;
 
+use common\jobs\ProcessOrderJob;
+use common\jobs\SendEmailJob;
 use common\models\forms\CreateOrderForm;
 use common\models\Order;
+use OpenApi\Attributes as OA;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\queue\Queue;
-use OpenApi\Attributes as OA;
 use yii\rest\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -46,7 +48,7 @@ class OrderController extends Controller
 
         //вызов из кэша
         $data = Yii::$app->cache->get($cacheKey);
-        if ($data !== false) {
+        if (is_array($data)) {
             //нашли в кэше отдали
             return $data;
         }
@@ -101,7 +103,11 @@ class OrderController extends Controller
             return ['success' => false, 'errors' => $form->getErrors()];
         }
         Yii::$app->cache->delete("order_{$order->id}");
-        Yii::$app->queue->push(new \common\jobs\ProcessOrderJob((int)$order->id));
+
+        /** @var Queue $queue */
+        $queue = Yii::$app->get('queue');
+        $queue->push(new ProcessOrderJob((int)$order->id));
+
         Yii::$app->response->statusCode = 201;
         return [
             'success' => true,
@@ -110,7 +116,9 @@ class OrderController extends Controller
     }
     public function actionTestEmail(): array
     {
-        Yii::$app->queueNotifications->push(new \common\jobs\SendEmailJob([
+        /** @var Queue $notifications */
+        $notifications = Yii::$app->get('queueNotifications');
+        $notifications->push(new SendEmailJob([
             'email' => 'test@example.com',
             'subject' => 'Тест уведомления',
         ]));

@@ -4,7 +4,13 @@ namespace common\models;
 
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
-
+/**
+ * @property int $id
+ * @property int $order_id
+ * @property string $product_name
+ * @property string $price
+ * @property int $quantity
+ */
 class OrderItem extends ActiveRecord
 {
     public const SCENARIO_CREATE_FROM_FORM = 'create-from-form';

@@ -8,6 +8,7 @@ parameters:
         - backend/views
         - backend/tests/Functional
         - backend/tests/Unit
+        - common/jobs
         - common/mail
         - common/models
         - common/widgets
@@ -17,6 +18,7 @@ parameters:
         - frontend/assets
         - frontend/controllers
         - frontend/models
+        - frontend/modules/api
         - frontend/views
         - frontend/tests/Acceptance
         - frontend/tests/Functional
@@ -36,8 +38,5 @@ parameters:
         - YII_ENV_DEV
         - YII_ENV_PROD
         - YII_ENV_TEST
-
-    ignoreErrors:
-        - '#Access to an undefined property yii\\web\\IdentityInterface::\$username.#'
 
     tmpDir: %currentWorkingDirectory%/runtime

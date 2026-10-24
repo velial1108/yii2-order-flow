@@ -15,12 +15,9 @@ class QueueNotificationsController extends Controller
 {
     public function actionListen(int $timeout = 3): int
     {
-        /** @var \yii\queue\Queue $queue */
+        /** @var \yii\queue\amqp_interop\Queue $queue */
         $queue = Yii::$app->get('queueNotifications');
-
-        // Запускаем бесконечный цикл прослушивания
-        $queue->listen($timeout);
-
+        $queue->listen();
         return ExitCode::OK;
     }
 }

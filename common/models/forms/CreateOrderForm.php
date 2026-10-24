@@ -24,8 +24,8 @@ class CreateOrderForm extends Model
     public function attributeLabels(): array
     {
         return [
-          'user_id' => 'Пользователь',
-          'items' => 'Позиция заказа',
+            'user_id' => 'Пользователь',
+            'items' => 'Позиция заказа',
         ];
     }
     public function validateItems(string $attribute): void
@@ -73,7 +73,7 @@ class CreateOrderForm extends Model
             $order = new Order();
             $order->user_id = (int)$this->user_id;
             $order->status = Order::STATUS_PENDING;
-            $order->total = 0;
+            $order->total = '0.00'; // было 0 (int) → string-поле
 
             if (!$order->save()) {
                 throw new DbException('Не удалось создать заказ: ' . json_encode($order->getErrors()));

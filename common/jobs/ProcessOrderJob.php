@@ -18,11 +18,12 @@ class ProcessOrderJob extends BaseObject implements JobInterface, RetryableJobIn
         parent::__construct($config);
     }
 
-    public function execute($queue): void
+    public function execute($queue = null): void
     {
         //тест DLQ
 //        throw new \RuntimeException('тестовая ошибка для DLQ');
-        $mutex = Yii::$app->mutex;
+        /** @var \yii\mutex\Mutex $mutex */
+        $mutex = Yii::$app->get('mutex');
         $lockName = 'order_' . $this->orderId;
 
         // попытка блокировки ждем 10 сек
