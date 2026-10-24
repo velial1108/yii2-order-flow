@@ -16,6 +16,8 @@ return [
             ],
         ],
     ],
+    'id' => 'app-common-tests',
+    'basePath' => dirname(__DIR__, 2),
     'components' => [
         'db' => [
             'class' => \yii\db\Connection::class,
@@ -31,6 +33,10 @@ return [
             ],
         ],
         'mailer' => \yii\mail\MailerInterface::class,
+        'mutex' => [
+                    'class' => \yii\mutex\FileMutex::class,
+                    'mutexPath' => '@runtime/mutex',
+                ],
         'queue' => [
             'class' => \yii\queue\amqp_interop\Queue::class,
             'host' => $params['rabbitmq']['host'],
