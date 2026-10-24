@@ -9,11 +9,18 @@ use common\models\Order;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\queue\Queue;
+use OpenApi\Attributes as OA;
 use yii\rest\Controller;
 use yii\web\NotFoundHttpException;
 
 class OrderController extends Controller
 {
+    #[OA\Get(
+        path: '/api/orders',
+        summary: 'Список заказов',
+        tags: ['Orders'],
+        responses: [new OA\Response(response: 200, description: 'Список заказов (пагинация по 20)')]
+    )]
     public function actionIndex(): ActiveDataProvider
     {
         return new ActiveDataProvider([
@@ -21,7 +28,18 @@ class OrderController extends Controller
             'pagination' => ['pageSize' => 20],
         ]);
     }
-
+    #[OA\Get(
+        path: '/api/orders/{id}',
+        summary: 'Получить заказ по ID',
+        tags: ['Orders'],
+        parameters: [
+            new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer')),
+        ],
+        responses: [
+            new OA\Response(response: 200, description: 'Успешный ответ'),
+            new OA\Response(response: 404, description: 'Заказ не найден'),
+        ]
+    )]
     public function actionView(int $id): array
     {
         $cacheKey = "order_{$id}";
@@ -43,21 +61,46 @@ class OrderController extends Controller
         Yii::$app->cache->set($cacheKey, $data, 300);
         return $data;
     }
-
+    #[OA\Post(
+        path: '/api/orders',
+        summary: 'Создать заказ',
+        tags: ['Orders'],
+        requestBody: new OA\RequestBody(
+            required: true,
+            content: new OA\JsonContent(
+                properties: [
+                    new OA\Property(property: 'user_id', type: 'integer', example: 1),
+                    new OA\Property(
+                        property: 'items',
+                        type: 'array',
+                        items: new OA\Items(
+                            properties: [
+                                new OA\Property(property: 'product_name', type: 'string', example: 'Book'),
+                                new OA\Property(property: 'price', type: 'string', example: '500.00'),
+                                new OA\Property(property: 'quantity', type: 'integer', example: 2),
+                            ],
+                            type: 'object'
+                        )
+                    ),
+                ]
+            )
+        ),
+        responses: [
+            new OA\Response(response: 201, description: 'Заказ создан'),
+            new OA\Response(response: 422, description: 'Ошибка валидации'),
+        ]
+    )]
     public function actionCreate(): array
     {
         $form = new CreateOrderForm();
         $form->load(Yii::$app->request->post(), '');
 
         $order = $form->create();
-        Yii::$app->cache->delete("order_{$order->id}");
         if ($order === null) {
             Yii::$app->response->statusCode = 422;
-            return [
-                'success' => false,
-                'errors' => $form->getErrors(),
-            ];
+            return ['success' => false, 'errors' => $form->getErrors()];
         }
+        Yii::$app->cache->delete("order_{$order->id}");
         Yii::$app->queue->push(new \common\jobs\ProcessOrderJob((int)$order->id));
         Yii::$app->response->statusCode = 201;
         return [

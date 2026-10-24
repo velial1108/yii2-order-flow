@@ -49,16 +49,15 @@ return [
             'showScriptName' => false,
             'enableStrictParsing' => false,
             'rules' => [
-                // API: заказы
+                // API ...
                 'GET api/orders' => 'api/order/index',
                 'GET api/orders/<id:\d+>' => 'api/order/view',
                 'POST api/orders' => 'api/order/create',
-
-                // API: health
                 'GET api/health' => 'api/health/index',
-
-                //API тест очереди воркера notification
                 'GET api/test-email' => 'api/order/test-email',
+
+                // Swagger UI (до catch-all правила!)
+                'api-doc' => 'api-doc/index',
 
                 // Сайт
                 '' => 'site/index',
