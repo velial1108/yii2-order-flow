@@ -77,8 +77,7 @@ jobs:
 
       - name: Initialize Yii environment
         run: php init --env=Development --overwrite=All
-      - name: Run PHPStan (level 5)
-        run: vendor/bin/phpstan analyse --no-progress --memory-limit=1G
+
       - name: Create test database
         run: |
           PGPASSWORD=secret psql -h localhost -U yii2advanced -d yii2advanced -c "CREATE DATABASE yii2advanced_test;"
@@ -88,6 +87,9 @@ jobs:
 
       - name: Build Codeception actors
         run: vendor/bin/codecept build
+
+      - name: Run PHPStan (level 5)
+        run: vendor/bin/phpstan analyse --no-progress --memory-limit=1G
 
       - name: Run Unit tests (common)
         run: vendor/bin/codecept run Unit -c common
