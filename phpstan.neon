@@ -38,5 +38,8 @@ parameters:
         - YII_ENV_DEV
         - YII_ENV_PROD
         - YII_ENV_TEST
-
+    ignoreErrors:
+        - '#has invalid type (Unit|Functional|Acceptance)Tester\.#'
+        - '#has unknown class (Unit|Functional|Acceptance)Tester as its type\.#'
+        - '#Call to method \S+\(\) on an unknown class (Unit|Functional|Acceptance)Tester\.#'
     tmpDir: %currentWorkingDirectory%/runtime
