@@ -1,0 +1,24 @@
+actor: IntegrationTester
+modules:
+  enabled:
+    - Asserts
+    - Yii2:
+        configFile: 'common/config/codeception-local.php'
+        appId: 'console'
+        cleanup: false
+        transaction: false
+        config:
+          id: 'app-common-tests'
+          basePath: '/app/common'
+    - AMQP:
+        host: rabbitmq
+        port: "5672"
+        username: user
+        password: password
+        vhost: '/'
+        queues:
+          - orders_test
+          - orders_dead_test
+          - notifications_test
+          - notifications_dead_test
+        cleanup: true

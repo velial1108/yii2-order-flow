@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 return yii\helpers\ArrayHelper::merge(
     require __DIR__ . '/main.php',
     require __DIR__ . '/main-local.php',
@@ -12,9 +10,10 @@ return yii\helpers\ArrayHelper::merge(
         'basePath' => dirname(__DIR__),
         'components' => [
             'request' => [
-                'cookieValidationKey' => 'test-secret-key',
+                'cookieValidationKey' => getenv('COOKIE_VALIDATION_KEY') ?: 'test-only-key',
             ],
             'user' => [
+                'class' => \yii\web\User::class,
                 'identityClass' => \common\models\User::class,
                 'enableSession' => false,
             ],

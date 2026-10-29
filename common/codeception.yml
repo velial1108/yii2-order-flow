@@ -1,5 +1,5 @@
 namespace: common\tests
-bootstrap: bootstrap.php
+bootstrap: _bootstrap.php
 support_namespace: Support
 paths:
     tests: tests

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2286855af0642358365d5b9449f79024",
+    "content-hash": "7461b0275c8ec58624fde6050c4ad983",
     "packages": [
         {
             "name": "bower-asset/inputmask",
@@ -4172,6 +4172,55 @@
                 "source": "https://github.com/Codeception/lib-xml/tree/1.1.1"
             },
             "time": "2025-11-28T08:21:33+00:00"
+        },
+        {
+            "name": "codeception/module-amqp",
+            "version": "3.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Codeception/module-amqp.git",
+                "reference": "0f0570d49e3d8fa0a94445e5e708f9eff60af5ad"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Codeception/module-amqp/zipball/0f0570d49e3d8fa0a94445e5e708f9eff60af5ad",
+                "reference": "0f0570d49e3d8fa0a94445e5e708f9eff60af5ad",
+                "shasum": ""
+            },
+            "require": {
+                "codeception/codeception": "^5.0.0-RC1",
+                "php": "^8.0",
+                "php-amqplib/php-amqplib": "^2.10 | ^3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Bodnarchuk"
+                },
+                {
+                    "name": "Gintautas Miselis"
+                }
+            ],
+            "description": "AMQP module for Codeception",
+            "homepage": "https://codeception.com/",
+            "keywords": [
+                "AMQP",
+                "codeception"
+            ],
+            "support": {
+                "issues": "https://github.com/Codeception/module-amqp/issues",
+                "source": "https://github.com/Codeception/module-amqp/tree/3.0.1"
+            },
+            "time": "2025-04-02T07:42:31+00:00"
         },
         {
             "name": "codeception/module-asserts",
