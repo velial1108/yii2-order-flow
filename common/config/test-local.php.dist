@@ -3,13 +3,13 @@
 declare(strict_types=1);
 use yii\queue\file\Queue;
 
-Yii::$container->set('queue', [
-    'class' => Queue::class,
-    'path' => '@runtime/queue-tests',
-]);
-
 return [
     'components' => [
+        'queue' => [
+                'queueName'    => 'orders_test',
+                'exchangeName' => 'orders_test_exchange',
+                'routingKey'   => 'orders_test_routing',
+            ],
         'db' => [
             'class' => \yii\db\Connection::class,
             'dsn' => 'pgsql:host=localhost;port=5432;dbname=yii2advanced_test',

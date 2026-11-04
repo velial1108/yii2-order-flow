@@ -19,7 +19,7 @@ class RabbitQueueTest extends \Codeception\Test\Unit
     protected function _before(): void
     {
         $this->ensureDeadLetterPolicy();
-        $connection = new AMQPStreamConnection('rabbitmq', 5672, 'user', 'password');
+        $connection = new AMQPStreamConnection($this->amqpHost(), 5672, 'user', 'password');
         $channel = $connection->channel();
 
         // Удаляем тестовую очередь, если она осталась с другими аргументами.
@@ -92,9 +92,15 @@ class RabbitQueueTest extends \Codeception\Test\Unit
             'ignore_errors' => true,
         ]]);
 
-        file_get_contents('http://rabbitmq:15672/api/policies/%2F/test-dlx', false, $context);
+        $host = $this->amqpHost();
+        file_get_contents("http://{$host}:15672/api/policies/%2F/test-dlx", false, $context);
 
-        $status = (int)explode(' ', $http_response_header[0] ?? '')[1];
+        $result = file_get_contents($url, false, $context);
+        if ($result === false) {
+            throw new \RuntimeException("RabbitMQ Management API недоступен: {$url}");
+        }
+
+        $status = (int)(explode(' ', $http_response_header[0] ?? '')[1] ?? 0);
         if ($status < 200 || $status >= 300) {
             throw new \RuntimeException("Не удалось создать политику test-dlx, HTTP $status");
         }
@@ -125,5 +131,9 @@ class RabbitQueueTest extends \Codeception\Test\Unit
 
         $this->tester->seeNumberOfMessagesInQueue('orders_test_dead', 1);
         $this->tester->seeQueueIsEmpty('orders_test');
+    }
+    private function amqpHost(): string
+    {
+        return getenv('AMQP_HOST') ?: 'localhost';
     }
 }
