@@ -9,7 +9,9 @@ on:
 jobs:
   tests:
     runs-on: ubuntu-latest
-
+    env:
+      XDEBUG_MODE: "off"
+      AMQP_HOST: localhost
     services:
       pgsql:
         image: postgres:16

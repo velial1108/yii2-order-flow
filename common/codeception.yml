@@ -25,3 +25,5 @@ coverage:
         - /mail/*
         - /models/*
         - /widgets/*
+params:
+    - env(AMQP_HOST)
