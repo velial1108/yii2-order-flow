@@ -93,3 +93,6 @@ jobs:
 
       - name: Run Unit tests (common)
         run: vendor/bin/codecept run Unit -c common
+
+      - name: Run Integration tests
+        run: vendor/bin/codecept run Integration -c common
