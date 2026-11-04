@@ -31,6 +31,7 @@ services:
     environment:
       YII_ENV: test
       XDEBUG_MODE: "off"
+      AMQP_HOST: rabbitmq
     depends_on:
       pgsql:
         condition: service_started

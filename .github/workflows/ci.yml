@@ -12,6 +12,7 @@ jobs:
     env:
       XDEBUG_MODE: "off"
       AMQP_HOST: localhost
+
     services:
       pgsql:
         image: postgres:16

@@ -11,6 +11,8 @@ actor_suffix: Tester
 settings:
     memory_limit: 1024M
     colors: true
+params:
+    - env
 modules:
     config:
         Yii2:
@@ -25,5 +27,3 @@ coverage:
         - /mail/*
         - /models/*
         - /widgets/*
-params:
-    - env(AMQP_HOST)
