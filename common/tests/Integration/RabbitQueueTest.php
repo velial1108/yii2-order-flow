@@ -75,6 +75,8 @@ class RabbitQueueTest extends \Codeception\Test\Unit
     }
     private function ensureDeadLetterPolicy(): void
     {
+        $url = sprintf('http://%s:15672/api/policies/%%2F/test-dlx', $this->amqpHost());
+
         $body = json_encode([
             'pattern' => '^orders_test$',
             'definition' => [
@@ -91,9 +93,6 @@ class RabbitQueueTest extends \Codeception\Test\Unit
             'content' => $body,
             'ignore_errors' => true,
         ]]);
-
-        $host = $this->amqpHost();
-        file_get_contents("http://{$host}:15672/api/policies/%2F/test-dlx", false, $context);
 
         $result = file_get_contents($url, false, $context);
         if ($result === false) {
